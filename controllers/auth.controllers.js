@@ -8,19 +8,24 @@ const {
 
 exports.signup = async (req, res) => {
   try {
+    console.log("console")
     const { password, email } = req.body;
     const hasMissingCredentials = !password || !email;
     if (hasMissingCredentials) {
       return res.status(400).json({ message: "missing credentials" });
     }
-
+    console.log("reqbody", req.body)
     if (!hasCorrectPasswordFormat(password)) {
+      console.log("password", password)
       return res.status(400).json({ message: "incorrect password format" });
     }
-
+    console.log("reqbody", req.body)
     const user = await User.findOne({ email });
 
+    console.log("user", user)
+
     if (user) {
+      
       return res.status(400).json({ message: "user alredy exists" });
     }
 
@@ -28,11 +33,13 @@ exports.signup = async (req, res) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await User.create({ email, hashedPassword });
-
+    console.log("reqsession", req.session)
+    console.log("newuser", newUser)
     req.session.userId = newUser._id;
-
+    console.log("console linia 37", req.session)
     return res.status(200).json({ user: newUser.email, id: newUser._id });
   } catch (e) {
+    console.log("e", e)
     if (isMongooseErrorValidation(e)) {
       return res.status(400).json({ message: "incorrect email format" });
     }
@@ -52,7 +59,7 @@ exports.login = async (req, res) => {
     }
 
     if (!hasCorrectPasswordFormat(password)) {
-      return res.status(400).json({ message: "incorrect password format" });
+      return res.status(400).json({ message: "incorrect password" });
     }
 
     const user = await User.findOne({ email });
