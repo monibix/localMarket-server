@@ -9,4 +9,7 @@ require("./config/session.config")(app);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+const productRoutes = require("./routes/products.routes");
+app.use("/products", productRoutes)
+
 app.listen(process.env.PORT, () => console.log("server running"));
