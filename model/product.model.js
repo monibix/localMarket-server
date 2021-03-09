@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema({
         type: String,
     },
     seller: {
-        type: mongoose.Schema.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId, 
         ref: "User"
     }
 })
