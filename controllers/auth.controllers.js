@@ -96,11 +96,19 @@ exports.getUser = async (req, res) => {
   res.status(200).json({ id: _id, email });
 };
 
+//no funciona en postman
 exports.editUser = async(req, res) => {
-  const { userId } = req.session;
-  console.log("reqsession", req.session)
-  const { userInfo } = req.body;
-  console.log("userInfo", userInfo)
-  const updatedUser = await User.findByIdAndUpdate(userId, userInfo)
-  res.status(200).json(updatedUser)
+  try {
+    const { userId } = req.session; //undefined
+    console.log("reqsession", req.session)
+    const userInfo = req.body; //undefined
+    console.log("reqbody", req.body)
+    const updatedUser = await User.findByIdAndUpdate(userId, userInfo)
+    res.status(200).json(updatedUser)
+  }
+  catch(error){
+    return res.status(400).json({ message: "error when edit a user"})
+  }
 }
+
+

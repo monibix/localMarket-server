@@ -36,9 +36,7 @@ exports.getMyProduct = async(req, res) => {
 exports.editProduct = async(req, res) => {
     try {
         const { myProduct } = req.params
-        console.log("product id edit", myProduct)
         const productInfo = req.body
-        console.log("product info", req.body)
         const updateProduct = await Product.findByIdAndUpdate(myProduct, productInfo)
         res.status(200).json(updateProduct)
     } catch (error) {
