@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const route  = Router();
+const fileParser = require('../config/cloudinary-setup.config')
 const {
     createProduct, 
     getMyProducts, 
@@ -10,7 +11,7 @@ const {
 
 route
     .get("/myProducts", getMyProducts)
-    .post("/add", createProduct)
+    .post("/add", fileParser.single('mainImage'), createProduct)
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)
     .delete("/:myProduct", deleteProduct)

@@ -95,3 +95,12 @@ exports.getUser = async (req, res) => {
   const { email, _id } = await User.findOne(userId);
   res.status(200).json({ id: _id, email });
 };
+
+exports.editUser = async(req, res) => {
+  const { userId } = req.session;
+  console.log("reqsession", req.session)
+  const { userInfo } = req.body;
+  console.log("userInfo", userInfo)
+  const updatedUser = await User.findByIdAndUpdate(userId, userInfo)
+  res.status(200).json(updatedUser)
+}

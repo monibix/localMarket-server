@@ -13,6 +13,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  username: {
+    type: String, 
+    require: true
+  }, 
+  direction: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("User", UserSchema);

@@ -3,8 +3,9 @@ const Product = require("../model/product.model")
 exports.createProduct = async(req, res) => {
     try {
         const sellerId = req.session.userId
-        const product = await Product.create({...req.body, seller: sellerId })
-
+        const mainImage = req.file.path
+        console.log("mainImage", mainImage)
+        const product = await Product.create({...req.body, seller: sellerId, mainImage })
         res.status(200).json(product)
     } catch (error) {
         return res.status(400).json({ message: "error when creating a product" })
@@ -49,8 +50,8 @@ exports.deleteProduct = async(req, res) => {
     try {
         const { myProduct } = req.params
         console.log("product id delete", myProduct)
-        const deleteProduct = await Product.findByIdAndRemove(myProduct)
-        res.status(200).json(deleteProduct)
+        await Product.findByIdAndRemove(myProduct)
+        res.status(200).json(myProduct)
     } catch (error) {
         return res.status(400).json({ message: "error when deleting a product" })
     }
