@@ -1,12 +1,14 @@
 const { Router } = require("express");
 const route = Router();
 const { withAuth } = require("../middlewares/withAuth");
+const fileParser = require('../config/cloudinary-setup.config')
 const {
   login,
   signup,
   logout,
   getUser,
-  editUser,  
+  editUser, 
+  uploadUserImage 
 } = require("../controllers/auth.controllers");
 
 route
@@ -15,5 +17,7 @@ route
   .post("/logout", logout)
   .get("/", withAuth, getUser)
   .put("/profile/edit", editUser )
+  .post("/upload", fileParser.single("userImage"), uploadUserImage)
+
 
 module.exports = route;

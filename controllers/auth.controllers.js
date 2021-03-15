@@ -86,7 +86,6 @@ exports.getUser = async (req, res) => {
   res.status(200).json(user);
 };
 
-//no funciona en postman
 exports.editUser = async(req, res) => {
   try {
     const { userId } = req.session; //undefined
@@ -100,6 +99,14 @@ exports.editUser = async(req, res) => {
   catch(error){
     return res.status(400).json({ message: "error when edit a user"})
   }
+}
+
+exports.uploadUserImage = async(req, res, next) => {
+  if(!req.file) {
+      next (new Error ("No file uploaded"));
+  }
+  console.log("image", req.file.path)
+  res.json(req.file.path)
 }
 
 

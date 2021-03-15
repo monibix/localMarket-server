@@ -19,6 +19,9 @@ const UserSchema = new mongoose.Schema({
   }, 
   direction: {
     type: String,
+  }, 
+  userImage: {
+    type: String,
   }
 });
 
