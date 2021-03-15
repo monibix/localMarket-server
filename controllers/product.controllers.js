@@ -60,3 +60,13 @@ exports.uploadProductImage = async(req, res, next) => {
     console.log("image", req.file.path)
     res.json(req.file.path)
 }
+
+//Public products
+exports.getProductByCategory = async(req, res) => {
+    // const allProducts = await Product.find();
+    // console.log("allproducts", allProducts)
+    // res.status(200).json(allProducts)
+    const { category } = req.query;
+    const products = await Product.find({ category });
+    res.status(200).json(products)
+}
