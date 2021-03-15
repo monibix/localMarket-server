@@ -6,12 +6,14 @@ const {
     getMyProducts, 
     getMyProduct, 
     editProduct, 
-    deleteProduct
+    deleteProduct, 
+    uploadProductImage
 } = require("../controllers/product.controllers")
 
 route
     .get("/myProducts", getMyProducts)
-    .post("/add", fileParser.single('mainImage'), createProduct)
+    .post("/add", createProduct)
+    .post("/upload", fileParser.single("image"), uploadProductImage)
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)
     .delete("/:myProduct", deleteProduct)

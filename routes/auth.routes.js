@@ -6,7 +6,7 @@ const {
   signup,
   logout,
   getUser,
-  editUser
+  editUser,  
 } = require("../controllers/auth.controllers");
 
 route

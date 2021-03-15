@@ -3,9 +3,7 @@ const Product = require("../model/product.model")
 exports.createProduct = async(req, res) => {
     try {
         const sellerId = req.session.userId
-        const mainImage = req.file.path
-        console.log("mainImage", mainImage)
-        const product = await Product.create({...req.body, seller: sellerId, mainImage })
+        const product = await Product.create({...req.body, seller: sellerId })
         res.status(200).json(product)
     } catch (error) {
         return res.status(400).json({ message: "error when creating a product" })
@@ -53,4 +51,12 @@ exports.deleteProduct = async(req, res) => {
     } catch (error) {
         return res.status(400).json({ message: "error when deleting a product" })
     }
+}
+
+exports.uploadProductImage = async(req, res, next) => {
+    if(!req.file) {
+        next (new Error ("No file uploaded"));
+    }
+    console.log("image", req.file.path)
+    res.json(req.file.path)
 }
