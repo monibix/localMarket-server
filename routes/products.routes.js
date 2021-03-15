@@ -13,7 +13,7 @@ const {
 route
     .get("/myProducts", getMyProducts)
     .post("/add", createProduct)
-    .post("/upload", fileParser.single("image"), uploadProductImage)
+    .post("/upload", fileParser.single("mainImage"), uploadProductImage)
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)
     .delete("/:myProduct", deleteProduct)

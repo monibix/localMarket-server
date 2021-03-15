@@ -10,7 +10,7 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    folder: 'LocalMarket', // The name of the folder in cloudinary
+    folder: 'LocalMarket', 
     allowedFormats: ['jpg', 'png'],
     
     filename: function (req, res, cb) {
