@@ -4,6 +4,7 @@ const User = require("../model/user.model")
 //Public products
 exports.getProductsByCategory = async(req, res) => {
     const { category } = req.query;
+    console.log("query", req.query)
     const products = await Product.find({ category });
     res.status(200).json(products)
 }
@@ -27,4 +28,11 @@ exports.getSellerDetails = async(req, res) => {
     } catch (error) {
         return res.status(400).json({ message: "error when getting seller details" })
     }
+}
+
+exports.getSearchProducts = async(req, res) => {
+    const { query } = req.query;
+    console.log("req.query", req.query)
+    const searchProducts = await Product.find({ query });
+    res.status(200).json(searchProducts)
 }
