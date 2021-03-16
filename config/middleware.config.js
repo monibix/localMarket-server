@@ -1,8 +1,9 @@
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const origin = "http://localhost:3000";
+const origin = process.env.PUBLIC_DOMAIN;
 const corsConfig = { origin: [origin], credentials: true };
 
 module.exports = (app) => {
