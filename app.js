@@ -13,4 +13,7 @@ app.use("/auth", authRoutes);
 const productRoutes = require("./routes/products.routes");
 app.use("/products", productRoutes)
 
+const mainRoutes = require("./routes/main.routes");
+app.use("/", mainRoutes)
+
 app.listen(process.env.PORT, () => console.log("server running"));
