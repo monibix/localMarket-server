@@ -10,9 +10,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
     cloudinary,
+    params: {
     folder: 'LocalMarket', 
     allowedFormats: ['jpg', 'png'],
-    
+    },
     filename: function (req, res, cb) {
     cb(null, res.originalname); 
     }
