@@ -22,7 +22,26 @@ const UserSchema = new mongoose.Schema({
   }, 
   userImage: {
     type: String,
-  }
+  }, 
+  description: {
+    type: String, 
+  }, 
+  valores: {
+    type: [String], 
+  }, 
+  userProducts: [
+    {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Product"
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", UserSchema);
+
+// myCocktails: [
+//     {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: 'Cocktail'
+//     }
+// ]
