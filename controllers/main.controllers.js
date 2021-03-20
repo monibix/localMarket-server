@@ -31,8 +31,9 @@ exports.getSellerDetails = async(req, res) => {
 }
 
 exports.getSearchProducts = async(req, res) => {
-    const { query } = req.query;
-    console.log("req.query", req.query)
-    const searchProducts = await Product.find({ query });
-    res.status(200).json(searchProducts)
+    const {query} = req.query
+    console.log("query", query)
+    const searchedProduct = await Product.find({ title: query })
+    console.log("searchedproduc", searchedProduct)
+    res.status(200).json(searchedProduct)
 }

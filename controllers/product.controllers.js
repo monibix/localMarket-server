@@ -24,6 +24,8 @@ exports.getMyProducts = async(req, res) => {
         console.log("allproducts", allProducts)
         res.status(200).json(allProducts)
         //coger sólo productos del array de productos de dicho usuario
+        //let userProducts = await User.findOne().populate('userProducts')
+        //res.status(200).json(userProducts)
     } catch (error) {
         return res.status(400).json({ message: "error when getting all products" })
     }
