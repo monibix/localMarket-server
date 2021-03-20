@@ -33,7 +33,7 @@ exports.getSellerDetails = async(req, res) => {
 exports.getSearchProducts = async(req, res) => {
     const {query} = req.query
     console.log("query", query)
-    const searchedProduct = await Product.find({ title: query })
+    const searchedProduct = await Product.find({ "title": { "$regex": req.query, "$options": "i" } })
     console.log("searchedproduc", searchedProduct)
     res.status(200).json(searchedProduct)
 }
