@@ -2,30 +2,53 @@ require('../app')
 const Product = require("../model/product.model")
 const User = require("../model/user.model")
 
-exports.createProduct = async(req, res) => {
-    try {
-        const sellerId = req.session.userId
-        const product = await Product.create({...req.body, seller: sellerId })
-        console.log("productId", product._id)
-        const userExist = User
-        console.log("userExist", userExist)
-        await User.findByIdAndUpdate(_id, {$push:{userProducts: product._id}}, {new: true}) //no asocia producto a usuario
-        console.log("productId", product._id)
-        res.status(200).json(product)
-    } catch (error) {
-        return res.status(400).json({ message: "error when creating a product" })
-    }
-}
+// exports.createProduct = async(req, res) => {
+//     try {
+//         const sellerId = req.session.userId
+//         const product = await Product.create({...req.body, seller: sellerId })
+//         console.log("productId", product._id)
+//         // const userExist = User
+//         // console.log("userExist", userExist)
+//         const userId = User.findById()
+//         await User.findByIdAndUpdate(_id, {$push:{userProducts: product._id}}, {new: true}) //no asocia producto a usuario
+//         console.log("productId", product._id)
+//         res.status(200).json(product)
+//     } catch (error) {
+//         return res.status(400).json({ message: "error when creating a product" })
+//     }
+// }
 
+
+exports.createProduct = async (req, res) => {
+    try {
+        const { userId: sellerId } = req.session;
+        console.log("selleri", sellerId)
+        const product = await Product.create({ ...req.body, seller: sellerId });
+        const updatedUser = await User.findByIdAndUpdate(
+        sellerId,
+        { $push: { userProducts: product._id } },
+        { new: true, omitUndefined: true }
+        ); //no asocia producto a usuario
+        console.log("user", updatedUser);
+        res.status(200).json(product);
+    } catch (error) {
+        console.log("error create product", error)
+        return res.status(400).json({ message: "error when creating a product" });
+    }
+};
 
 exports.getMyProducts = async(req, res) => {
     try {
-        const allProducts = await Product.find();
-        console.log("allproducts", allProducts)
-        res.status(200).json(allProducts)
+        // const allProducts = await Product.find();
+        // //console.log("allproducts", allProducts)
+        // res.status(200).json(allProducts)
         //coger sólo productos del array de productos de dicho usuario
-        //let userProducts = await User.findOne().populate('userProducts')
-        //res.status(200).json(userProducts)
+        // let userProducts = await User.findOne().populate('userProducts')
+        // res.status(200).json(userProducts)
+        const {userId } = req.session;
+        const products = await Product.find({seller: userId})
+        console.log("procut", products)
+        res.status(200).json(products)
     } catch (error) {
         return res.status(400).json({ message: "error when getting all products" })
     }

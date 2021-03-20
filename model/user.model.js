@@ -34,7 +34,8 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: "Product"
     }
-  ]
+  ], 
+  orders: [Array]
 });
 
 module.exports = mongoose.model("User", UserSchema);

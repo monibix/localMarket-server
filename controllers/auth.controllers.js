@@ -77,8 +77,6 @@ exports.logout = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   const { userId } = req.session;
-  // const { email, _id } = await User.findOne(userId);
-  // res.status(200).json({ id: _id, email });
   console.log("userId", userId);
   const { hashedPassword, ...user } = await User.findById({
     _id: userId,
@@ -88,11 +86,11 @@ exports.getUser = async (req, res) => {
 
 exports.editUser = async(req, res) => {
   try {
-    const { userId } = req.session; //undefined
+    const { userId } = req.session; 
     console.log("reqsession", req.session)
-    const userInfo = req.body; //undefined
+    const userInfo = req.body; 
     console.log("reqbody", req.body)
-    const updatedUser = await User.findByIdAndUpdate({_id: userId}, userInfo) //userId
+    const updatedUser = await User.findByIdAndUpdate({_id: userId}, userInfo)
     console.log("updatedUser", updatedUser)
     res.status(200).json(updatedUser)
   }

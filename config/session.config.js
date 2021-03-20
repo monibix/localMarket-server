@@ -1,6 +1,6 @@
 require("dotenv").config();
 const session = require("express-session");
-const MongoStore = require("connect-mongo").default;
+const MongoStore = require("connect-mongo");
 
 const { SESSION_SECRET, MONGODB_URI } = process.env;
 console.log(MONGODB_URI);
