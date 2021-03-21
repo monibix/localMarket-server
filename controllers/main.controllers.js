@@ -20,20 +20,27 @@ exports.getProductByCategory = async(req, res) => {
     }
 }
 
+exports.getSearchProducts = async(req, res) => {
+    try {
+        const {query} = req.query
+        console.log("query", query)
+        const searchedProduct = await Product.find({ "title": { "$regex": req.query, "$options": "i" } })
+        console.log("searchedproduc", searchedProduct)
+        res.status(200).json(searchedProduct)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 exports.getSellerDetails = async(req, res) => {
     try {
         const{ sellerId } = req.params
-        const seller = await User.findById(sellerId)
+        const seller = await (await User.findById(sellerId)).populate("userProducts")
+        console.log("seller POPULATE", seller)
+        console.log("seller POPULATE", seller.userProducts)
         return res.status(200).json(seller)
     } catch (error) {
         return res.status(400).json({ message: "error when getting seller details" })
     }
 }
 
-exports.getSearchProducts = async(req, res) => {
-    const {query} = req.query
-    console.log("query", query)
-    const searchedProduct = await Product.find({ "title": { "$regex": req.query, "$options": "i" } })
-    console.log("searchedproduc", searchedProduct)
-    res.status(200).json(searchedProduct)
-}

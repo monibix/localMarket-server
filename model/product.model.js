@@ -4,10 +4,11 @@ const ProductSchema = new mongoose.Schema({
     title:{
         type: String, 
         require: true, 
-        unique: true,
+        //unique: true,
     }, 
     ref: {
         type: String, 
+        unique: true
     },
     category:{
         type: [String],

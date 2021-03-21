@@ -47,24 +47,24 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "missing credentials" });
     }
     if (!hasCorrectPasswordFormat(password)) {
-      return res.status(400).json({ message: "incorrect password" });
+      return res.status(400).json({ message: "Incorrect email or password" });
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "user does not exist" });
+      return res.status(400).json({ message: "This email is not registered, sign up" });
     }
     const hasCorrectPassword = await bcrypt.compare(
       password,
       user.hashedPassword
     );
     if (!hasCorrectPassword) {
-      return res.status(401).json({ message: "unauthorize" });
+      return res.status(401).json({ message: "Incorrect password" });
     }
     req.session.userId = user._id;
     return res.status(200).json({ user: user.email, id: user._id });
   } catch (e) {
     if (isMongooseErrorValidation(e)) {
-      return res.status(400).json({ message: "incorrect email format" });
+      return res.status(400).json({ message: "Incorrect email format" });
     }
     return res.status(400).json({ message: "wrong request" });
   }
