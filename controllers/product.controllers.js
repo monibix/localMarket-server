@@ -78,3 +78,16 @@ exports.uploadProductImage = async(req, res, next) => {
     res.json(req.file.path)
 }
 
+exports.getMyFavourites = async(req, res) => {
+    try {
+        console.log("ENTRA EN MY FAVOURITES CONTROLLER")
+        const {userId } = req.session;
+        console.log("userid", userId)
+        const userInfo = await User.findById(userId).populate("favourites")
+        const favourites = userInfo.favourites
+        console.log("favorites", favourites)
+        return res.status(200).json(favourites)
+    } catch (error) {
+        console.log(error)
+    }
+}
