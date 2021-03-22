@@ -8,7 +8,7 @@ const {
   logout,
   getUser,
   editUser, 
-  uploadUserImage 
+  uploadUserImage, 
 } = require("../controllers/auth.controllers");
 
 route

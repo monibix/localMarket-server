@@ -35,6 +35,12 @@ const UserSchema = new mongoose.Schema({
     ref: "Product"
     }
   ], 
+  favourites: [
+    {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Product"
+    }
+  ], 
   orders: [Array]
 });
 
