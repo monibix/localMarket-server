@@ -11,15 +11,15 @@ exports.signup = async (req, res) => {
     const { password, email } = req.body;
     const hasMissingCredentials = !password || !email;
     if (hasMissingCredentials) {
-      return res.status(400).json({ message: "missing credentials" });
+      return res.status(400).json({ message: "Missing credentials" });
     }
     if (!hasCorrectPasswordFormat(password)) {
       console.log("password", password)
-      return res.status(400).json({ message: "incorrect password format" });
+      return res.status(400).json({ message: "Incorrect email or password format" });
     }
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: "user alredy exists" });
+      return res.status(400).json({ message: "This email alredy exists, please choose another one or login" });
     }
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
@@ -30,12 +30,12 @@ exports.signup = async (req, res) => {
     return res.status(200).json({ user: newUser.email, id: newUser._id });
   } catch (e) {
     if (isMongooseErrorValidation(e)) {
-      return res.status(400).json({ message: "incorrect email format" });
+      return res.status(400).json({ message: "Incorrect email format" });
     }
     if (isMongoError(e)) {
-      return res.status(400).json({ message: "duplicate field" });
+      return res.status(400).json({ message: "Duplicate field" });
     }
-    return res.status(400).json({ message: "wrong request" });
+    return res.status(400).json({ message: "Wrong request" });
   }
 };
 

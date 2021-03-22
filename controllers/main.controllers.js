@@ -24,8 +24,7 @@ exports.getSearchProducts = async(req, res) => {
     try {
         const {query} = req.query
         console.log("query", query)
-        const searchedProduct = await Product.find({ "title": { "$regex": req.query, "$options": "i" } })
-        console.log("searchedproduc", searchedProduct)
+        const searchedProduct = await Product.find({ "title": { "$regex": query, "$options": "i" }})
         res.status(200).json(searchedProduct)
     } catch (error) {
         console.log(error)
