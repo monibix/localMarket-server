@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
   }, 
   userImage: {
     type: String,
+    default: 'https://res.cloudinary.com/monibix/image/upload/v1611084105/cocktailparty/default-user_yq8kve.png'
   }, 
   description: {
     type: String, 

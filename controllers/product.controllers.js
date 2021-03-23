@@ -5,13 +5,12 @@ const User = require("../model/user.model")
 exports.createProduct = async (req, res) => {
     try {
         const { userId: sellerId } = req.session;
-        console.log("selleri", sellerId)
         const product = await Product.create({ ...req.body, seller: sellerId });
         const updatedUser = await User.findByIdAndUpdate(
         sellerId,
         { $push: { userProducts: product._id } },
         { new: true, omitUndefined: true }
-        ); //no asocia producto a usuario
+        ); 
         console.log("user", updatedUser);
         res.status(200).json(product);
     } catch (error) {
@@ -22,15 +21,8 @@ exports.createProduct = async (req, res) => {
 
 exports.getMyProducts = async(req, res) => {
     try {
-        // const allProducts = await Product.find();
-        // //console.log("allproducts", allProducts)
-        // res.status(200).json(allProducts)
-        //coger sólo productos del array de productos de dicho usuario
-        // let userProducts = await User.findOne().populate('userProducts')
-        // res.status(200).json(userProducts)
         const {userId } = req.session;
         const products = await Product.find({seller: userId})
-        console.log("procut", products)
         res.status(200).json(products)
     } catch (error) {
         return res.status(400).json({ message: "error when getting all products" })
@@ -40,7 +32,6 @@ exports.getMyProducts = async(req, res) => {
 exports.getMyProduct = async(req, res) => {
     try {
         const { myProduct } = req.params
-        console.log("productId", myProduct)
         const product = await Product.findById(myProduct)
         res.status(200).json(product)
     } catch (error) {
@@ -62,7 +53,6 @@ exports.editProduct = async(req, res) => {
 exports.deleteProduct = async(req, res) => {
     try {
         const { myProduct } = req.params
-        console.log("product id delete", myProduct)
         await Product.findByIdAndRemove(myProduct)
         res.status(200).json(myProduct)
     } catch (error) {
@@ -80,9 +70,7 @@ exports.uploadProductImage = async(req, res, next) => {
 
 exports.getMyFavourites = async(req, res) => {
     try {
-        console.log("ENTRA EN MY FAVOURITES CONTROLLER")
         const {userId } = req.session;
-        console.log("userid", userId)
         const userInfo = await User.findById(userId).populate("favourites")
         const favourites = userInfo.favourites
         console.log("favorites", favourites)

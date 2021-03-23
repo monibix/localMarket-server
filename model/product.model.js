@@ -20,8 +20,7 @@ const ProductSchema = new mongoose.Schema({
     },
     mainImage: {
         type: String, 
-        default: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fredzonekickboxing.com%2Fhome%2Fdefault-image%2F&psig=AOvVaw11Gn2ic5Wv1RagqjUKKAp5&ust=1615993194744000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLjs3fSJte8CFQAAAAAdAAAAABAD",
-        require: true,
+        default: 'https://res.cloudinary.com/monibix/image/upload/v1616490406/LocalMarket/default-image_450_wbssaj.png'
     }, 
     moreImages: {
         type: [String], 
@@ -35,7 +34,11 @@ const ProductSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "User"
     }, 
-})
+    },
+    {
+        timestamps: { createdAt: true, updatedAt: true }
+    }
+)
 
 module.exports = mongoose.model("Product", ProductSchema);
 

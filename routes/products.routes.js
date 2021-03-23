@@ -14,7 +14,6 @@ const {
 route
     .get("/myProducts", getMyProducts)
     .get("/favourites", getMyFavourites)
-
     .post("/add", createProduct)
     .post("/upload", fileParser.single("mainImage"), uploadProductImage)
     .get("/:myProduct", getMyProduct)

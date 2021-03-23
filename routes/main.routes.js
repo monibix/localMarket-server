@@ -5,7 +5,7 @@ const {
     getProductByCategory, 
     getSellerDetails, 
     getSearchProducts, 
-    manageFavourites
+    manageFavourites, 
 } = require("../controllers/main.controllers")
 
 route
