@@ -23,6 +23,7 @@ exports.getMyProducts = async(req, res) => {
     try {
         const {userId } = req.session;
         const products = await Product.find({seller: userId})
+        
         res.status(200).json(products)
     } catch (error) {
         return res.status(400).json({ message: "error when getting all products" })
@@ -31,10 +32,13 @@ exports.getMyProducts = async(req, res) => {
 
 exports.getMyProduct = async(req, res) => {
     try {
+        console.log("entra en my product")
+
         const { myProduct } = req.params
         const product = await Product.findById(myProduct)
         res.status(200).json(product)
     } catch (error) {
+        console.log(error)
         return res.status(400).json({ message: "error when getting a single products" })
     }
 }
@@ -83,10 +87,12 @@ exports.getMyFavourites = async(req, res) => {
 exports.getSellerDetails = async(req, res) => {
     try {
         const{ sellerId } = req.params
+        console.log("sellerid", sellerId)
         const seller = await User.findById(sellerId).populate("userProducts")
-        console.log("seller - userProducts - POPULATE", seller.userProducts)
-        return res.status(200).json(seller.userProducts)
+        console.log("seller - userProducts - POPULATE", seller)
+        return res.status(200).json(seller)
     } catch (error) {
+        console.log(error)
         return res.status(400).json({ message: "error when getting seller details" })
     }
 }

@@ -15,12 +15,14 @@ const {
 route
     .get("/myProducts", getMyProducts)
     .get("/favourites", getMyFavourites)
-    .get("/:sellerId", getSellerDetails)
     .post("/add", createProduct)
     .post("/upload", fileParser.single("mainImage"), uploadProductImage)
+    .get("/seller/:sellerId", getSellerDetails)
+    
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)
+
     .delete("/:myProduct", deleteProduct)
-    .get("/favourites", getMyFavourites)
+    //.get("/favourites", getMyFavourites)
 
 module.exports = route; 
