@@ -79,3 +79,14 @@ exports.getMyFavourites = async(req, res) => {
         console.log(error)
     }
 }
+
+exports.getSellerDetails = async(req, res) => {
+    try {
+        const{ sellerId } = req.params
+        const seller = await User.findById(sellerId).populate("userProducts")
+        console.log("seller - userProducts - POPULATE", seller.userProducts)
+        return res.status(200).json(seller.userProducts)
+    } catch (error) {
+        return res.status(400).json({ message: "error when getting seller details" })
+    }
+}

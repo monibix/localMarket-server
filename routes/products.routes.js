@@ -8,12 +8,14 @@ const {
     editProduct, 
     deleteProduct, 
     uploadProductImage, 
-    getMyFavourites
+    getMyFavourites, 
+    getSellerDetails
 } = require("../controllers/product.controllers")
 
 route
     .get("/myProducts", getMyProducts)
     .get("/favourites", getMyFavourites)
+    .get("/:sellerId", getSellerDetails)
     .post("/add", createProduct)
     .post("/upload", fileParser.single("mainImage"), uploadProductImage)
     .get("/:myProduct", getMyProduct)
