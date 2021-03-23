@@ -76,6 +76,7 @@ exports.logout = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
+  console.log("entra en getuser??")
   const { userId } = req.session;
   console.log("userId", userId);
   const { hashedPassword, ...user } = await User.findById({
@@ -87,6 +88,7 @@ exports.getUser = async (req, res) => {
 exports.editUser = async(req, res) => {
   try {
     const { userId } = req.session; 
+    console.log("userId en editUser", userId)
     console.log("reqsession", req.session)
     const userInfo = req.body; 
     console.log("reqbody", req.body)

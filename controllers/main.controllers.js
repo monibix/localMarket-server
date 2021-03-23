@@ -36,7 +36,7 @@ exports.getSellerDetails = async(req, res) => {
     try {
         const{ sellerId } = req.params
         const seller = await User.findById(sellerId).populate("userProducts")
-        console.log("seller - userProducts - POPULATE", seller.userProducts)
+        console.log("seller - userProducts - POPULATE", seller)
         return res.status(200).json(seller)
     } catch (error) {
         return res.status(400).json({ message: "error when getting seller details" })

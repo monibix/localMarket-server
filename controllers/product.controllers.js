@@ -21,6 +21,7 @@ exports.createProduct = async (req, res) => {
 
 exports.getMyProducts = async(req, res) => {
     try {
+        console.log("entra en getmy products")
         const {userId } = req.session;
         const products = await Product.find({seller: userId})
         
