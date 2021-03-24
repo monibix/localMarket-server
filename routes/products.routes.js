@@ -17,7 +17,7 @@ route
     .get("/favourites", getMyFavourites)
     .post("/add", createProduct)
     .post("/upload", fileParser.single("mainImage"), uploadProductImage)
-    .get("/seller/:sellerId", getSellerDetails)
+    //.get("/seller/:sellerId", getSellerDetails)
     
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)

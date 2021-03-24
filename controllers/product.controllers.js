@@ -86,15 +86,16 @@ exports.getMyFavourites = async(req, res) => {
 }
 
 //CHECK SELLER DETAILS!
-exports.getSellerDetails = async(req, res) => {
-    try {
-        const{ sellerId } = req.params
-        console.log("sellerid", sellerId)
-        const seller = await User.findById(sellerId).populate("userProducts")
-        console.log("seller - userProducts - POPULATE", seller)
-        return res.status(200).json(seller)
-    } catch (error) {
-        console.log(error)
-        return res.status(400).json({ message: "error when getting seller details" })
-    }
-}
+// exports.getSellerDetails = async(req, res) => {
+//     console.log("getSellerDetails PRODUCT CONTROLLERS")
+//     try {
+//         const{ sellerId } = req.params
+//         console.log("sellerid", sellerId)
+//         const seller = await User.findById(sellerId).populate("userProducts")
+//         console.log("seller - userProducts - POPULATE", seller)
+//         return res.status(200).json(seller)
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(400).json({ message: "error when getting seller details" })
+//     }
+// }

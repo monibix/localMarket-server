@@ -11,12 +11,14 @@ exports.getProductsByCategory = async(req, res) => {
 exports.getProductByCategory = async(req, res) => {
     try {
         const { productId } = req.params
-        const product = await Product.findById(productId)
+        const product = await Product.findById(productId).populate("seller")
+        console.log("product", product)
         res.status(200).json(product)
     } catch (error) {
         return res.status(400).json({ message: "error when getting a single products" })
     }
 }
+//const seller = await User.findById(sellerId).populate("userProducts")
 
 exports.getSearchProducts = async(req, res) => {
     try {
@@ -34,6 +36,7 @@ exports.getSearchProducts = async(req, res) => {
 
 //CHECK SELLER DETAILS!! 
 exports.getSellerDetails = async(req, res) => {
+    console.log("getSellerDetails MAIN CONTROLLERS")
     try {
         const{ sellerId } = req.params
         const seller = await User.findById(sellerId).populate("userProducts")
