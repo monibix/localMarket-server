@@ -34,7 +34,6 @@ exports.getMyProducts = async(req, res) => {
 exports.getMyProduct = async(req, res) => {
     try {
         console.log("entra en my product")
-
         const { myProduct } = req.params
         const product = await Product.findById(myProduct)
         res.status(200).json(product)
@@ -73,6 +72,7 @@ exports.uploadProductImage = async(req, res, next) => {
     res.json(req.file.path)
 }
 
+//CHECK FAVOURITES
 exports.getMyFavourites = async(req, res) => {
     try {
         const {userId } = req.session;
@@ -85,6 +85,7 @@ exports.getMyFavourites = async(req, res) => {
     }
 }
 
+//CHECK SELLER DETAILS!
 exports.getSellerDetails = async(req, res) => {
     try {
         const{ sellerId } = req.params

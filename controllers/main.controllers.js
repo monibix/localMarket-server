@@ -32,6 +32,7 @@ exports.getSearchProducts = async(req, res) => {
     }
 }
 
+//CHECK SELLER DETAILS!! 
 exports.getSellerDetails = async(req, res) => {
     try {
         const{ sellerId } = req.params
@@ -43,6 +44,7 @@ exports.getSellerDetails = async(req, res) => {
     }
 }
 
+//CHECK FAVOURITES
 exports.manageFavourites = async(req, res) => {
     try {
         console.log("STARTS MANAGE FAVOURITES")
@@ -59,5 +61,20 @@ exports.manageFavourites = async(req, res) => {
         return res.status(200).json(isFavourite)
     } catch (error) {
         console.error(error)
+    }
+}
+
+exports.saveOrder = async (req, res) => {
+    console.log("entra en save order")
+    try {
+        let order = req.body
+        console.log("order",order)
+        const {userId} = req.session
+        console.log("userid", userId)
+        await User.findByIdAndUpdate(userId, { $push: { orders: order} }, { new: true })
+
+
+    } catch (error) {
+        console.log(error)
     }
 }

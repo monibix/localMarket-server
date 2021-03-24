@@ -6,6 +6,7 @@ const {
     getSellerDetails, 
     getSearchProducts, 
     manageFavourites, 
+    saveOrder
 } = require("../controllers/main.controllers")
 
 route
@@ -14,5 +15,6 @@ route
     .get("/seller/:sellerId", getSellerDetails)
     .get("/query", getSearchProducts)
     .post("/category/:productId", manageFavourites)
+    .post("/shoppinglist", saveOrder)
 
 module.exports = route
