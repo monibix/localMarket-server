@@ -15,7 +15,7 @@ exports.createProduct = async (req, res) => {
         res.status(200).json(product);
     } catch (error) {
         console.log("error create product", error)
-        return res.status(400).json({ message: "error when creating a product" });
+        return res.status(400).json({ message: "An error ocurred. Please try again" });
     }
 };
 
