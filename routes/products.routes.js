@@ -17,12 +17,8 @@ route
     .get("/favourites", getMyFavourites)
     .post("/add", createProduct)
     .post("/upload", fileParser.single("mainImage"), uploadProductImage)
-    //.get("/seller/:sellerId", getSellerDetails)
-    
     .get("/:myProduct", getMyProduct)
     .put("/:myProduct", editProduct)
-
     .delete("/:myProduct", deleteProduct)
-    //.get("/favourites", getMyFavourites)
 
 module.exports = route; 

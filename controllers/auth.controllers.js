@@ -14,7 +14,6 @@ exports.signup = async (req, res) => {
       return res.status(400).json({ message: "Missing credentials" });
     }
     if (!hasCorrectPasswordFormat(password)) {
-      console.log("password", password)
       return res.status(400).json({ message: "Incorrect email or password format" });
     }
     const user = await User.findOne({ email });
@@ -25,7 +24,6 @@ exports.signup = async (req, res) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await User.create({ email, hashedPassword });
-    console.log("newuser", newUser)
     req.session.userId = newUser._id;
     return res.status(200).json({ user: newUser.email, id: newUser._id });
   } catch (e) {
@@ -76,9 +74,7 @@ exports.logout = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-  console.log("entra en getuser??")
   const { userId } = req.session;
-  console.log("userId", userId);
   const { hashedPassword, ...user } = await User.findById({
     _id: userId,
   }).lean();
@@ -88,12 +84,8 @@ exports.getUser = async (req, res) => {
 exports.editUser = async(req, res) => {
   try {
     const { userId } = req.session; 
-    console.log("userId en editUser", userId)
-    console.log("reqsession", req.session)
     const userInfo = req.body; 
-    console.log("reqbody", req.body)
     const updatedUser = await User.findByIdAndUpdate({_id: userId}, userInfo)
-    console.log("updatedUser", updatedUser)
     res.status(200).json(updatedUser)
   }
   catch(error){
@@ -105,7 +97,6 @@ exports.uploadUserImage = async(req, res, next) => {
   if(!req.file) {
       next (new Error ("No file uploaded"));
   }
-  console.log("image", req.file.path)
   res.json(req.file.path)
 }
 

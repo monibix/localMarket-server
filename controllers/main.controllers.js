@@ -12,13 +12,11 @@ exports.getProductByCategory = async(req, res) => {
     try {
         const { productId } = req.params
         const product = await Product.findById(productId).populate("seller")
-        console.log("product", product)
         res.status(200).json(product)
     } catch (error) {
         return res.status(400).json({ message: "error when getting a single products" })
     }
 }
-//const seller = await User.findById(sellerId).populate("userProducts")
 
 exports.getSearchProducts = async(req, res) => {
     try {
@@ -30,17 +28,14 @@ exports.getSearchProducts = async(req, res) => {
         res.status(200).json(searchedProduct)
     } catch (error) {
         console.log(error)
-        
     }
 }
 
 //CHECK SELLER DETAILS!! 
 exports.getSellerDetails = async(req, res) => {
-    console.log("getSellerDetails MAIN CONTROLLERS")
     try {
         const{ sellerId } = req.params
         const seller = await User.findById(sellerId).populate("userProducts")
-        console.log("seller - userProducts - POPULATE", seller)
         return res.status(200).json(seller)
     } catch (error) {
         return res.status(400).json({ message: "error when getting seller details" })
@@ -50,12 +45,10 @@ exports.getSellerDetails = async(req, res) => {
 //CHECK FAVOURITES
 exports.manageFavourites = async(req, res) => {
     try {
-        console.log("STARTS MANAGE FAVOURITES")
         const {userId} = req.session
         const { productId } = req.params
         let user = await User.findById(userId)
         let isFavourite = user.favourites.includes(productId)
-        console.log("isFavourite", isFavourite)
         if (isFavourite) {
             await User.findByIdAndUpdate(userId, { $pull: { favourites: productId} }, { new: true })
         } else {
@@ -68,15 +61,10 @@ exports.manageFavourites = async(req, res) => {
 }
 
 exports.saveOrder = async (req, res) => {
-    console.log("entra en save order")
     try {
         let order = req.body
-        console.log("order",order)
         const {userId} = req.session
-        console.log("userid", userId)
         await User.findByIdAndUpdate(userId, { $push: { orders: order} }, { new: true })
-
-
     } catch (error) {
         console.log(error)
     }
